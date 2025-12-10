@@ -1,0 +1,42 @@
+# Dependencies
+**/node_modules/
+**/target/
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# Build outputs
+*.class
+*.jar
+*.war
+
+# Logs
+*.log
+
+# Sensitive files - DO NOT COMMIT
+**/client_secret_*.json
+*.har
+**/application-secret.yaml
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Maven wrapper
+.mvn/wrapper/maven-wrapper.jar
+
+# Client UI build
+client-ui/dist/
+
+# HAR files (contain sensitive session data)
+network/
+
+# Diagrams private files
+Diagrams/client_secret_*.json

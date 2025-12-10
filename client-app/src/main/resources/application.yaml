@@ -1,0 +1,59 @@
+spring:
+  application:
+    name: client-app
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 450472639030-g4g6r5terpsr6i9eo5bfhmfedcf33387.apps.googleusercontent.com
+            client-secret: ${GOOGLE_CLIENT_SECRET}
+            scope:
+              - openid
+              - email
+              - profile
+            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+            client-name: Google Login
+        provider:
+          google:
+            # Visitor Pass ( --- Code --- ) kosam
+            authorization-uri: https://accounts.google.com/o/oauth2/v2/auth
+            # Permanent Access Card ( --- Token --- ) kosam
+            token-uri: https://oauth2.googleapis.com/token
+
+            user-info-uri: https://www.googleapis.com/oauth2/v3/userinfo
+            user-name-attribute: sub
+
+server:
+  port: 8080  # Backend run avtunna Port
+
+logging:
+  level:
+    # 🔥 MAWA! Detailed logs for understanding OAuth2 flow
+    
+    # Spring Security Core - Basic auth processing
+    org.springframework.security: DEBUG
+    
+    # OAuth2 Client - Authorization Request & Token Exchange
+    org.springframework.security.oauth2.client: TRACE
+    
+    # OAuth2 Authorization Request Redirect Filter - Step 1: Redirect to Google
+    org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter: TRACE
+    
+    # OAuth2 Login Authentication Filter - Step 2: Handle callback from Google
+    org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter: TRACE
+    
+    # OAuth2 Token Exchange - Exchange code for tokens
+    org.springframework.security.oauth2.client.endpoint: TRACE
+    
+    # OIDC User Service - Create user from ID Token
+    org.springframework.security.oauth2.client.oidc.userinfo: TRACE
+    
+    # Security Filter Chain - See all filters
+    org.springframework.security.web.FilterChainProxy: DEBUG
+    
+    # RestTemplate - See HTTP calls to Google
+    org.springframework.web.client.RestTemplate: DEBUG
+    
+    # Your custom logger
+    com.oauth.client_app: DEBUG

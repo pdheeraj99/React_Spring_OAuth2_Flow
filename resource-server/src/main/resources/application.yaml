@@ -1,0 +1,18 @@
+server:
+  port: 8081  # ⚠️ Important: Different port from Client (8080)
+
+spring:
+  application:
+    name: resource-server
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          # Google's JWKS endpoint - Spring will fetch public keys from here
+          jwk-set-uri: https://www.googleapis.com/oauth2/v3/certs
+          # Issuer claim that must be present in the JWT
+          issuer-uri: https://accounts.google.com
+
+logging:
+  level:
+    org.springframework.security: DEBUG
