@@ -1,0 +1,32 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: order-service
+    
+  security:
+    oauth2:
+      client:
+        registration:
+          # Registration for calling Inventory Service
+          inventory-client:
+            client-id: order-service
+            client-secret: order-service-secret
+            authorization-grant-type: client_credentials  # ⭐ THE KEY CONFIG!
+            scope: read:inventory
+            client-name: Inventory API Client
+            
+        provider:
+          inventory-client:
+            token-uri: http://localhost:9000/oauth2/token  # Auth Server endpoint
+
+# Inventory Service URL
+inventory:
+  service:
+    url: http://localhost:8081
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+    org.springframework.web.reactive: DEBUG

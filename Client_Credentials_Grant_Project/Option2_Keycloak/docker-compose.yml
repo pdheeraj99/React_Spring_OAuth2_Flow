@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  keycloak:
+    image: quay.io/keycloak/keycloak:23.0
+    container_name: keycloak-auth
+    environment:
+      # Admin credentials for Keycloak console
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+    ports:
+      - "9001:8080" # Keycloak will be available on localhost:9001 (changed from 9000)
+    command:
+      - start-dev # Development mode (no HTTPS required)
+    volumes:
+      - keycloak_data:/opt/keycloak/data
+
+volumes:
+  keycloak_data:

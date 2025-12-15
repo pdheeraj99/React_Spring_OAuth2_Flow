@@ -1,0 +1,18 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: inventory-service
+    
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          # ⭐ Auth Server's issuer URI
+          # Resource Server will fetch public keys from here to validate tokens
+          issuer-uri: http://localhost:9000
+
+logging:
+  level:
+    org.springframework.security: DEBUG

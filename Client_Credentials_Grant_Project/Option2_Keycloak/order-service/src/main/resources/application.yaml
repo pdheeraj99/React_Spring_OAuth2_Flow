@@ -1,0 +1,33 @@
+server:
+  port: 8082  # Changed to avoid conflict with Option 1
+
+spring:
+  application:
+    name: order-service-keycloak
+    
+  security:
+    oauth2:
+      client:
+        registration:
+          # Registration for calling Inventory Service using Keycloak
+          inventory-client:
+            client-id: order-service
+            client-secret: McDnGX9a4jyU5NRNahVCuv6FSB4zyuxI  # ⭐ FROM KEYCLOAK!
+            authorization-grant-type: client_credentials  # ⭐ THE KEY CONFIG!
+            # No custom scope - using default Keycloak scopes
+            client-name: Inventory API Client
+            
+        provider:
+          inventory-client:
+            # Keycloak token endpoint format: /realms/{realm}/protocol/openid-connect/token
+            token-uri: http://localhost:9001/realms/microservices/protocol/openid-connect/token
+
+# Inventory Service URL
+inventory:
+  service:
+    url: http://localhost:8083
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+    org.springframework.web.reactive: DEBUG

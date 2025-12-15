@@ -1,0 +1,17 @@
+server:
+  port: 8083  # Changed to avoid conflict with Option 1
+
+spring:
+  application:
+    name: inventory-service-keycloak
+    
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          # Keycloak issuer URI format: /realms/{realm}
+          issuer-uri: http://localhost:9001/realms/microservices
+
+logging:
+  level:
+    org.springframework.security: DEBUG
